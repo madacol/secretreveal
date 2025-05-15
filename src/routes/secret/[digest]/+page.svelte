@@ -1,5 +1,5 @@
 <script>
-import SecretTextarea from '$lib/components/SecretTextarea.svelte';
+  import SecretTextarea from '$lib/components/SecretTextarea.svelte';
   import DigestDisplay from '$lib/components/DigestDisplay.svelte';
   import { getDigest, validateDigest } from '$lib/digest';
   
@@ -34,13 +34,9 @@ import SecretTextarea from '$lib/components/SecretTextarea.svelte';
 
 <main>
   <div class="container">
-    <h1>Secret Message</h1>
-
-    <DigestDisplay {digest} />
-
     {#if revealed_at}
+      <h1>Message revealed</h1>
       <div class="revealed">
-        <span class="label">Message revealed</span>
         <p class="message">{message}</p>
         <p>
           Revealed at
@@ -48,9 +44,12 @@ import SecretTextarea from '$lib/components/SecretTextarea.svelte';
         </p>
       </div>
     {:else}
+      <h1>The secret message has not been revealed</h1>
+      <p>To reveal it, please enter the original message below:</p>
       <form method="POST">
         <SecretTextarea
             name="message"
+            placeholder="Enter the secret message"
             required
             oninput={async (event) => {
               const inputMessage = event.currentTarget.value;
@@ -65,14 +64,6 @@ import SecretTextarea from '$lib/components/SecretTextarea.svelte';
             }}
         />
 
-        {#if inputDigest}
-          <DigestDisplay digest={inputDigest} label="Your input digest" />
-          
-          {#if inputDigest === digest}
-            <p class="success">✓ Valid secret</p>
-          {/if}
-        {/if}
-
         {#if error}
           <p class="error">✗ {error}</p>
         {/if}
@@ -82,6 +73,13 @@ import SecretTextarea from '$lib/components/SecretTextarea.svelte';
         {/if}
       </form>
     {/if}
+    <br>
+    <details>
+      <summary>Technical details</summary>
+      <h5>Digests comparison</h5>
+      <DigestDisplay {digest} label="Expected" />
+      <DigestDisplay digest={inputDigest} label="Message" />
+    </details>
   </div>
 </main>
 
@@ -107,15 +105,6 @@ import SecretTextarea from '$lib/components/SecretTextarea.svelte';
     font-weight: 600;
     margin: 0 0 2rem;
     color: #2d3748;
-  }
-
-  .label {
-    font-size: 0.875rem;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.5rem;
-    display: block;
   }
 
   button {
@@ -150,5 +139,18 @@ import SecretTextarea from '$lib/components/SecretTextarea.svelte';
     margin: 0.5rem 0 0;
     font-size: 1.125rem;
     color: #15803d;
+  }
+
+  details {
+    margin-top: 2rem;
+    background: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 2px solid #e5e7eb;
+  }
+  details summary {
+    font-weight: 600;
+    color: #1f2937;
+    cursor: pointer;
   }
 </style>
