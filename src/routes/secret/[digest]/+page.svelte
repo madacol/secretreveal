@@ -3,13 +3,20 @@ import SecretTextarea from '$lib/components/SecretTextarea.svelte';
   import DigestDisplay from '$lib/components/DigestDisplay.svelte';
   import { getDigest, validateDigest } from '$lib/digest';
   
+  /** @type {{
+   *   data: {
+   *     message?: string,
+   *     digest: string,
+   *     revealed_at?: Date | null
+   *   }
+   * }}*/
   let { data } = $props();
   let message = data.message;
   let digest = data.digest;
+  let revealed_at = data.revealed_at;
 
   let inputDigest = $state('');
 
-  let revealed = $state(message ? true : false);
   /** @type {string | null} */
   let error = $state(null);
   if (message) {
@@ -31,10 +38,14 @@ import SecretTextarea from '$lib/components/SecretTextarea.svelte';
 
     <DigestDisplay {digest} />
 
-    {#if revealed}
+    {#if revealed_at}
       <div class="revealed">
         <span class="label">Message revealed</span>
         <p class="message">{message}</p>
+        <p>
+          Revealed at
+          <time datetime="{revealed_at.toISOString()}">{revealed_at.toLocaleString()}</time>
+        </p>
       </div>
     {:else}
       <form method="POST">

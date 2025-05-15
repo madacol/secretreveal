@@ -14,7 +14,7 @@ export async function load({ params }) {
         throw error(400, 'Hash must be a hexadecimal string');
     }
     // Check if the hash exists in the database
-    const {rows: [secret]} = await sql`SELECT message FROM secrets WHERE digest = ${digest}`;
+    const {rows: [secret]} = await sql`SELECT message, revealed_at FROM secrets WHERE digest = ${digest}`;
     
     return {...secret, digest};
 }
@@ -41,10 +41,8 @@ export const actions = {
         }
 
         await sql`
-            INSERT INTO secrets (message, digest)
-            VALUES (${message}, ${digest})
-            ON CONFLICT (digest) DO UPDATE
-            SET message = ${message}
+            INSERT INTO secrets (message, digest, revealed_at)
+            VALUES (${message}, ${digest}, NOW())
         `;
 
         return { success: true };
