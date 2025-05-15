@@ -139,12 +139,6 @@ import SecretTextarea from '$lib/components/SecretTextarea.svelte';
     margin: 1rem 0;
   }
 
-  .success {
-    color: #16a34a;
-    font-size: 0.875rem;
-    margin: 1rem 0;
-  }
-
   .revealed {
     background: #f0fdf4;
     padding: 1.5rem;
