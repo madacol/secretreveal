@@ -3,8 +3,8 @@
   import { fly } from 'svelte/transition';
   
   let secret = $state('');
-  let hash = $state('');
   let shareableLink = $state('');
+  let digest = $state('');
 </script>
 
 <main>
@@ -20,13 +20,13 @@
           if (secret) {
             const encoder = new TextEncoder();
             const data = encoder.encode(secret);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            hash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-            shareableLink = `${window.location.origin}/secret/${hash}`;
+            shareableLink = `${window.location.origin}/secret/${digest}`;
+            const digestBuffer = await crypto.subtle.digest('SHA-256', data);
+            const digestArray = Array.from(new Uint8Array(digestBuffer));
+            digest = digestArray.map(b => b.toString(16).padStart(2, '0')).join('');
           } else {
-            hash = '';
             shareableLink = '';
+            digest = '';
           }
         }}
     />
