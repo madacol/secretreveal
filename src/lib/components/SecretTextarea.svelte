@@ -1,29 +1,15 @@
 <script>
-    /**
-     * @type {{
-     *   value?: string,
-     *   placeholder?: string,
-     *   required?: boolean,
-     *   name?: string,
-     *   oninput: import('svelte/elements').FormEventHandler<HTMLTextAreaElement>
-     * }}
-     */
+  /** @type {import('svelte/elements').HTMLTextareaAttributes} */
   let { 
-    value = '', 
-    placeholder = 'Type your secret message here...',
-    required = false,
-    name = undefined,
-    oninput = () => {}
+    value = $bindable(''),
+    ...restProps
   } = $props();
 </script>
 
 <div class="field">
   <textarea
-    {value}
-    {name}
-    {placeholder}
-    {required}
-    {oninput}
+    bind:value
+    {...restProps}
   ></textarea>
 </div>
 
