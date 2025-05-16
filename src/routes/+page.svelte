@@ -1,10 +1,10 @@
 <script>
   import SecretTextarea from '$lib/components/SecretTextarea.svelte';
+  import { getDigest } from '$lib/digest';
   import { fly } from 'svelte/transition';
   
   let secret = $state('');
   let shareableLink = $state('');
-  let digest = $state('');
 </script>
 
 <main>
@@ -18,15 +18,10 @@
           secret = event.currentTarget.value;
           
           if (secret) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(secret);
+            const digest = await getDigest(secret);
             shareableLink = `${window.location.origin}/secret/${digest}`;
-            const digestBuffer = await crypto.subtle.digest('SHA-256', data);
-            const digestArray = Array.from(new Uint8Array(digestBuffer));
-            digest = digestArray.map(b => b.toString(16).padStart(2, '0')).join('');
           } else {
             shareableLink = '';
-            digest = '';
           }
         }}
     />
