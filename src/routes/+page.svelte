@@ -63,6 +63,7 @@
     border-radius: 1rem;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     width: 100%;
+    min-width: 400px;
     box-sizing: border-box;
     max-width: 600px;
     display: flex;
