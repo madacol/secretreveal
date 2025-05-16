@@ -48,12 +48,10 @@
 
 <style>
   main {
-    min-height: 100vh;
     min-width: fit-content;
     box-sizing: border-box;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     display: grid;
-    place-items: center;
+    place-items: start center;
     padding: 2rem;
   }
 

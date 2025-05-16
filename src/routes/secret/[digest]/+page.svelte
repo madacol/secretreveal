@@ -84,10 +84,9 @@
 
 <style>
   main {
-    min-height: 100vh;
     min-width: fit-content;
     display: grid;
-    place-items: center;
+    place-items: start center;
     padding: 2rem;
     box-sizing: border-box;
     gap: 2rem;
