@@ -57,6 +57,11 @@
             required
             oninput={async (event) => {
               const inputMessage = event.currentTarget.value;
+              if (!inputMessage) {
+                inputDigest = '';
+                error = null;
+                return;
+              }
               inputDigest = await getDigest(inputMessage);
               const isValid = inputDigest === digest;
           
@@ -68,8 +73,8 @@
             }}
         />
         <div class="error-success">
-          <p class:no-width={!error} class="error">✗ {error}</p>
-          <button class:no-width={error} type="submit">Reveal Secret</button>
+          <p class:no-width={!error || !inputDigest} class="error">✗ {error}</p>
+          <button class:no-width={error || !inputDigest} type="submit">Reveal Secret</button>
         </div>
       </form>
     {/if}
