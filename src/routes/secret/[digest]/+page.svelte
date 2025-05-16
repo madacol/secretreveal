@@ -129,7 +129,7 @@
       border-radius: 6px;
       font-weight: 500;
       cursor: pointer;
-      transition: background-color 0.2s 0.2s;
+      transition: background-color 0.1s 0.1s;
       
       &:hover {
         background: #1d4ed8;
@@ -140,7 +140,7 @@
       color: #dc2626;
       font-size: 0.875rem;
       margin: 1rem 0;
-      transition: opacity 0.2s 0.2s;
+      transition: opacity 0.1s 0.1s;
       opacity: 1;
     }
 
