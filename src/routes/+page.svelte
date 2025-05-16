@@ -9,10 +9,13 @@
 
 <main>
   <div class="container">
-    <h1>Share a Secret</h1>
-    <p class="subtitle">Create a link where your secret will be revealed</p>
+    <h1><span>Share now</span><span>Reveal later</span></h1>
+    <p class="subtitle">Write the message you'll want to reveal</p>
     
     <SecretTextarea
+      autofocus
+      placeholder="e.g. I predict that ________ will happen on ______"
+      required
       oninput={
         async function(event) {
           secret = event.currentTarget.value;
@@ -28,7 +31,7 @@
 
     {#if shareableLink}
       <div class="result" in:fly={{ y: 20, duration: 300 }}>
-        <p class="result-title">Your secret is ready to share</p>
+        <p class="result-title">Share link</p>
         <div class="link-container">
           <input readonly value={shareableLink} />
           <button class="copy-btn" onclick={() => navigator.clipboard.writeText(shareableLink)}>
@@ -36,6 +39,8 @@
           </button>
           <a href={shareableLink} target="_blank" rel="noopener" class="open-btn">View</a>
         </div>
+        <p>To reveal the message, open the link, and write the same exact message.</p>
+        <p>If both messages do not match, the message will not be revealed</p>
       </div>
     {/if}
   </div>
@@ -44,6 +49,8 @@
 <style>
   main {
     min-height: 100vh;
+    min-width: fit-content;
+    box-sizing: border-box;
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     display: grid;
     place-items: center;
@@ -56,7 +63,14 @@
     border-radius: 1rem;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     width: 100%;
+    box-sizing: border-box;
     max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    & > * {
+      margin: 0;
+    }
   }
 
   h1 {
@@ -64,14 +78,20 @@
     color: #1a202c;
     margin: 0;
     font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    span {
+      text-wrap: nowrap;
+    }
   }
 
   .subtitle {
     color: #4a5568;
-    margin: 0.5rem 0 2rem 0;
   }
+
   .result {
-    margin-top: 2rem;
     padding: 1.5rem;
     background: #f8fafc;
     border-radius: 0.75rem;
@@ -89,16 +109,16 @@
     gap: 0.5rem;
     align-items: center;
     flex-wrap: wrap;
-  }
-
-  .link-container input {
-    flex: 1;
-    padding: 0.75rem;
-    border: 2px solid #e2e8f0;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    color: #4a5568;
-    background: white;
+    
+    input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      color: #4a5568;
+      background: white;
+    }
   }
 
   .copy-btn,
@@ -121,19 +141,9 @@
     background: #4299e1;
     color: white;
     text-decoration: none;
-  }
-
-  .copy-btn:hover,
-  .open-btn:hover {
-    transform: translateY(-1px);
-  }
-
-  .copy-btn:active,
-  .open-btn:active {
-    transform: translateY(0);
-  }
-
-  .open-btn:hover {
-    background: #3182ce;
+    
+    &:hover {
+      background: #3182ce;
+    }
   }
 </style>

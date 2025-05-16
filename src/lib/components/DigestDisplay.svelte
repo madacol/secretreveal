@@ -21,20 +21,20 @@
     border-radius: 8px;
     display: grid;
     grid-template-columns: 10ch auto;
-  }
 
-  .label {
-    font-size: 0.875rem;
-    letter-spacing: 0.05em;
-    margin-right: 0.5rem;
-    display: block;
-  }
+    & > .label {
+      font-size: 0.875rem;
+      margin-right: 0.5rem;
+      display: block;
+    }
 
-  code {
-    font-family: 'SF Mono', Consolas, Monaco, monospace;
-    font-size: 0.75rem;
-    position: relative;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    & > code {
+      font-size: 0.75rem;
+      position: relative;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
+    }
   }
 </style>

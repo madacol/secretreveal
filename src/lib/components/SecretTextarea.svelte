@@ -6,18 +6,12 @@
   } = $props();
 </script>
 
-<div class="field">
-  <textarea
-    bind:value
-    {...restProps}
-  ></textarea>
-</div>
+<textarea
+  bind:value
+  {...restProps}
+></textarea>
 
 <style>
-  .field {
-    margin: 1.5rem 0;
-  }
-
   textarea {
     width: 100%;
     min-height: 150px;
